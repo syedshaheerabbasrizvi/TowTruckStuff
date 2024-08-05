@@ -128,7 +128,7 @@ void loop ()
     pulses += timerCounts;
     
     // Send pulses and frequency to serial, separated by a comma
-    frq = 100;
+    frq = 100; // this is only for testing... remove when you're testing the real thing
     Serial.println(frq, 2);   // 2 decimal places for float
     
     // restart counting
