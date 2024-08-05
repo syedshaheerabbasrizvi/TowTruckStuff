@@ -26,7 +26,7 @@ rosdep install -i --from-path src --rosdistro humble -y
 
 colcon build --packages-select py_pubsub
 
-after this point, please open Arduino IDE, connect with your Arduino, and upload the code given in wheel_encoder.ino. verify it's working with serial monitor, then close serial monitor.
+after this point, please open Arduino IDE, connect with your Arduino, and upload the code given in wheel_encoder.ino (you might want to look for an undercase comment regarding hardcoded frequency). verify it's working with serial monitor, then close serial monitor.
 
 source install/setup.bash
 
