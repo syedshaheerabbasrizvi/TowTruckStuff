@@ -32,8 +32,7 @@ def main():
 
                 except ValueError:
                     node.get_logger().warn(f'Received invalid data: {line}')
-            
-            time.sleep(0.1)  # Delay to allow time for the Arduino to respond
+
 
     except KeyboardInterrupt:
         pass
@@ -46,4 +45,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
