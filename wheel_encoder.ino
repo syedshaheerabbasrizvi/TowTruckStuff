@@ -4,15 +4,15 @@
 
 
 // Input: Pin D5
-
+// Note from Shaheer: I do not understand a good portion of this code, especially the work with interrupts, since I borrowed this from online to save time and effort. Perhaps I will set aside some time to understand and explain this, but for now, consider this as a black box that takes a typical digital signal (where 0-1 V is low and 4-5 V is high) and figures out its frequency. The larger the sampling time, the more accurate our frequency... but the less frequently we will be updated. This is not to say that low sampling time kills the accuracy, just that we will have to consider the average of the output data (for example, we are sending 50 Hz and the output constantly alternates between 0 and 100 Hz equally, averaging to 50 Hz). Trial and error is a good idea to find the sweet spot.
 
 // these are checked for in the main program
-volatile unsigned long timerCounts;
-volatile boolean counterReady;
+volatile unsigned long timerCounts; // apparently the volatile keyword is to let the compiler know this can have very sharp changes? other than that, this is self explanatory
+volatile boolean counterReady; // time to calculate after counting
 
 
 // internal to counting routine
-unsigned long overflowCount;
+unsigned long overflowCount; // keeps track of overflows for Timer 1. will make more sense later
 unsigned int timerTicks;
 unsigned int timerPeriod;
 double pulses = 0;
@@ -114,9 +114,9 @@ ISR (TIMER2_COMPA_vect)
 
 void setup ()
 {
-  Serial.begin(115200);      
-  Serial.println("Frequency Counter");
-  startCounting(100); // Start counting for 100 ms (or another period)
+  Serial.begin(115200); // serial is at baud rate 115200, which should be noted wherever else you use serial
+  Serial.println("Frequency Counter"); // to show that we have initialized successfully
+  startCounting(10); // Start counting for 10 ms (or another period)
 } // end of setup
 
 
@@ -124,12 +124,12 @@ void loop ()
 {
   if (counterReady) {
     // adjust counts by counting interval to give frequency in Hz
-    float frq = (timerCounts *  1000.0) / timerPeriod;
-    pulses += timerCounts;
+    float frq = (timerCounts *  1000.0) / timerPeriod; // frequency is obtained by dividing the number of detected pulses by the period, then multiplying by 1000 because the period is in ms
+    pulses += timerCounts; // we may use this to keep track of total distance travelled
     // Send pulses and frequency to serial, separated by a comma
     Serial.println(frq, 2);   // 2 decimal places for float
     
     // restart counting
-    startCounting(10); // Continue counting for 100 ms (or another period)
+    startCounting(10); // Continue counting for 10 ms (or another period)
   }
 }
