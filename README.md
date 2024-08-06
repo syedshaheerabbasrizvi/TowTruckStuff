@@ -2,7 +2,7 @@ first install ros 2 humble on ubuntu 22 and make a colcon workspace -- refer to 
 
 if bash complains about not recognizing ros2, try  source /opt/ros/humble/install/setup.bash 
 
-cd ~/ros2_ws
+cd ~/ros2_ws/src
 
 ros2 pkg create --build-type ament_python --license Apache-2.0 py_pubsub
 
