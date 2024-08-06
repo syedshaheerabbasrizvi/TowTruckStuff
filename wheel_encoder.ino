@@ -126,12 +126,10 @@ void loop ()
     // adjust counts by counting interval to give frequency in Hz
     float frq = (timerCounts *  1000.0) / timerPeriod;
     pulses += timerCounts;
-    
     // Send pulses and frequency to serial, separated by a comma
-    frq = 100; // this is only for testing... remove when you're testing the real thing
     Serial.println(frq, 2);   // 2 decimal places for float
     
     // restart counting
-    startCounting(100); // Continue counting for 100 ms (or another period)
+    startCounting(10); // Continue counting for 100 ms (or another period)
   }
 }
